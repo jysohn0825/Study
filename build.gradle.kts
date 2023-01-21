@@ -1,29 +1,38 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.0"
-    application
+    id("org.springframework.boot") version "2.7.3"
+    id("io.spring.dependency-management") version "1.0.13.RELEASE"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.spring") version "1.6.21"
+    kotlin("plugin.jpa") version "1.6.21"
 }
 
 group = "com.redbee"
-version = "1.0-SNAPSHOT"
+version = "1.0"
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
-}
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-tasks.test {
-    useJUnitPlatform()
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
 }
 
-application {
-    mainClass.set("MainKt")
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
