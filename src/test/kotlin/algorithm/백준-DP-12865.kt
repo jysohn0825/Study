@@ -6,12 +6,11 @@ data class Product(val weight: Int, val value: Int)
 
 fun main() {
     val reader = System.`in`.bufferedReader()
-    val writer = System.out.bufferedWriter()
     val (count, maxWeight) = reader.readLine().split(" ").map { it.toInt() }
     val products = buildList {
         repeat(count) {
             val (weight, value) = reader.readLine().split(" ").map { it.toInt() }
-            add(Product(weight, value))
+            this += Product(weight, value)
         }
     }
 
@@ -31,7 +30,6 @@ fun main() {
 
         }
     }
-    writer.write("${dp[count - 1][maxWeight]}")
-    writer.close()
+    println(dp[count - 1][maxWeight])
     reader.close()
 }
