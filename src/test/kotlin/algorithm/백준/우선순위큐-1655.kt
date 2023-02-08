@@ -1,4 +1,4 @@
-package algorithm
+package algorithm.백준
 
 import java.io.BufferedReader
 import java.lang.StringBuilder
