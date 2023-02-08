@@ -2,6 +2,8 @@ package algorithm
 
 import kotlin.math.max
 
+data class Product(val weight: Int, val value: Int)
+
 fun main() {
     val reader = System.`in`.bufferedReader()
     val writer = System.out.bufferedWriter()
@@ -33,5 +35,3 @@ fun main() {
     writer.close()
     reader.close()
 }
-
-data class Product(val weight: Int, val value: Int)
