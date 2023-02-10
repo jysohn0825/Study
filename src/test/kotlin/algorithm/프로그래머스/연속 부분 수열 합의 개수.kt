@@ -1,6 +1,6 @@
 package algorithm.프로그래머스
 
-class Solution {
+class `연속 부분 수열 합의 개수` {
     fun solution(elements: IntArray): Int {
         val answer = mutableSetOf<Int>()
         val size = elements.size
@@ -15,6 +15,6 @@ class Solution {
 }
 
 fun main() {
-    val size = Solution().solution(intArrayOf(7, 9, 1, 1, 4))
+    val size = `연속 부분 수열 합의 개수`().solution(intArrayOf(7, 9, 1, 1, 4))
     println(size)
 }
