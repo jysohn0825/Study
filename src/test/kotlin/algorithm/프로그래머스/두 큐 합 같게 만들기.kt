@@ -1,11 +1,9 @@
 package algorithm.프로그래머스
 
-import java.util.*
-
 class `두 큐 합 같게 만들기` {
 
-    private val queueTemp1 = LinkedList<Int>()
-    private val queueTemp2 = LinkedList<Int>()
+    private val queueTemp1 = ArrayDeque<Int>()
+    private val queueTemp2 = ArrayDeque<Int>()
     private var queue1Sum = 0L
     private var queue2Sum = 0L
 
@@ -16,9 +14,11 @@ class `두 큐 합 같게 만들기` {
         queue2Sum = queue2.sum().toLong()
         val totalSum = queue1Sum + queue2Sum
         if (totalSum % 2 != 0L) return -1
+        if (queue1Sum == queue2Sum) return 0
 
         offerAndPoll()
         var answer = 1
+        if (queue1Sum == queue2Sum) return answer
 
         do {
             offerAndPoll()
@@ -30,26 +30,21 @@ class `두 큐 합 같게 만들기` {
 
     private fun offerAndPoll() {
         if (queue1Sum < queue2Sum) {
-            val temp = queueTemp2.poll()
-            if (temp != null) queueTemp1.offer(temp)
-            queue1Sum += (temp ?: 0)
-            queue2Sum -= (temp ?: 0)
+            val temp = queueTemp2.removeFirst()
+            queueTemp1.add(temp)
+            queue1Sum += temp
+            queue2Sum -= temp
         } else {
-            val temp = queueTemp1.poll()
-            if (temp != null) queueTemp2.offer(temp)
-            queue1Sum -= (temp ?: 0)
-            queue2Sum += (temp ?: 0)
+            val temp = queueTemp1.removeFirst()
+            queueTemp2.add(temp)
+            queue1Sum -= temp
+            queue2Sum += temp
         }
     }
 
-    private fun validCheck(array: IntArray, queue: LinkedList<Int>): Boolean {
-        if (array.size != queue.size) return true
-        else {
-            for (i in array.indices) {
-                if (array[i] != queue[i]) return true
-            }
-            return false
-        }
+    private fun validCheck(array: IntArray, queue: ArrayDeque<Int>): Boolean {
+        return if (array.size != queue.size) true
+        else array.toList() == queue.toList()
     }
 }
 
